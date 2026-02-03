@@ -1,9 +1,9 @@
-name: Deploy to Aruba
+name: Deploy to Aruba via FTP
 
 on:
   push:
     branches:
-      - main  # O il nome della tua branch principale
+      - main
 
 jobs:
   build-and-deploy:
@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Installazione dipendenze
         run: npm install
@@ -23,11 +24,11 @@ jobs:
       - name: Build del progetto
         run: npm run build
 
-      - name: Upload su Aruba via FTP
+      - name: Upload su Aruba
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/  # Vite genera i file qui
-          server-dir: ./www/  # La cartella pubblica su Aruba (potrebbe chiamarsi diversamente)
+          local-dir: ./dist/
+          server-dir: ./www/
