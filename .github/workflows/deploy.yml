@@ -1,45 +1,33 @@
-name: Deploy to GitHub Pages
+name: Deploy to Aruba
 
 on:
   push:
-    branches: ["main"] # Si attiva ogni volta che carichi su main
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+    branches:
+      - main  # O il nome della tua branch principale
 
 jobs:
-  build_site:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout del codice
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
-      - name: Install dependencies
+      - name: Installazione dipendenze
         run: npm install
 
-      - name: Build
+      - name: Build del progetto
         run: npm run build
 
-      - name: Upload Artifacts
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload su Aruba via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          path: dist # Carica la cartella creata da Vite
-
-  deploy:
-    needs: build_site
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/  # Vite genera i file qui
+          server-dir: ./www/  # La cartella pubblica su Aruba (potrebbe chiamarsi diversamente)
