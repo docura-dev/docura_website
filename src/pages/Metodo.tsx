@@ -291,7 +291,7 @@ const Metodo = () => {
                 </h3>
                 <p className="text-primary font-medium mb-4">CEO & Co-Founder</p>
                 <p className="text-muted-foreground leading-relaxed max-w-sm">
-                  Classe 1998. Specializzato in informatica, sviluppo software e automazione di processi aziendali.
+                  Classe 1997. Specializzato in informatica, sviluppo software e automazione di processi aziendali.
                   Esperienza diretta nei settori Logistica, Trasporti e Alimentare,
                   con focus su sistemi affidabili, scalabili e su misura.
                 </p>
