@@ -40,7 +40,7 @@ export const Footer = () => {
               </a>
             </div>
             <p className="text-sm text-background/50">
-              P.IVA: 123456789
+              P.IVA: 14554560962
             </p>
           </div>
 
