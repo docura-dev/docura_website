@@ -240,7 +240,7 @@ const Metodo = () => {
               className="text-center mb-16"
             >
               <h2 className="text-heading-xl md:text-display-lg font-bold text-foreground">
-                Chi c'è dietro Docura
+                Da chi nasce Docura
               </h2>
             </motion.div>
 
