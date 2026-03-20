@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { GradientOrb, FloatingDocument, FloatingDataBlock, FloatingWorkflow, FloatingAIBot, FloatingEmail, FloatingNotification, FloatingChat } from "@/components/ui/FloatingElements";
@@ -60,21 +61,44 @@ const contactInfo = [
 const Contatti = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [reason, setReason] = useState("");
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const form = e.currentTarget;
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: (form.elements.namedItem("name") as HTMLInputElement).value,
+          company: (form.elements.namedItem("company") as HTMLInputElement).value,
+          from_email: (form.elements.namedItem("email") as HTMLInputElement).value,
+          phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+          reason,
+          message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast({
-      title: "Messaggio inviato!",
-      description: "Ti risponderemo entro 24 ore lavorative.",
-    });
+      setIsSubmitted(true);
+      setReason("");
+      toast({
+        title: "Messaggio inviato!",
+        description: "Ti risponderemo entro 24 ore lavorative.",
+      });
+    } catch {
+      toast({
+        title: "Errore nell'invio",
+        description: "Si è verificato un problema. Riprova o contattaci direttamente a ask@docura.it.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -212,14 +236,14 @@ const Contatti = () => {
 
                     <div className="space-y-2">
                       <Label htmlFor="reason">Motivo del contatto *</Label>
-                      <Select name="reason" required>
+                      <Select value={reason} onValueChange={setReason} required>
                         <SelectTrigger className="rounded-xl h-12">
                           <SelectValue placeholder="Seleziona un'opzione" />
                         </SelectTrigger>
                         <SelectContent>
-                          {contactReasons.map((reason) => (
-                            <SelectItem key={reason.value} value={reason.value}>
-                              {reason.label}
+                          {contactReasons.map((r) => (
+                            <SelectItem key={r.value} value={r.value}>
+                              {r.label}
                             </SelectItem>
                           ))}
                         </SelectContent>
