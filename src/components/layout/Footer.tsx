@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, MapPin, Linkedin } from "lucide-react";
+import { Mail, MapPin, Linkedin, Instagram } from "lucide-react";
 import docuraLogo from "@/assets/docura-logo.png";
 
 const footerLinks = {
@@ -36,6 +36,15 @@ export const Footer = () => {
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5 text-background" />
+              </a>
+              <a
+                href="https://www.instagram.com/docura.it"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-background/20 transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5 text-background" />
               </a>
             </div>
             <p className="text-sm text-background/50">
