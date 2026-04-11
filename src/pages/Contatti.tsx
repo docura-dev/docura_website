@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import {
-  Phone,
   Mail,
   MapPin,
   Clock,
@@ -32,12 +31,6 @@ const contactReasons = [
 ];
 
 const contactInfo = [
-  {
-    icon: Phone,
-    label: "Telefono",
-    value: "+39 349 331 7518",
-    href: "tel:+393493317518",
-  },
   {
     icon: Mail,
     label: "Email",
@@ -77,7 +70,6 @@ const Contatti = () => {
           from_name: (form.elements.namedItem("name") as HTMLInputElement).value,
           company: (form.elements.namedItem("company") as HTMLInputElement).value,
           from_email: (form.elements.namedItem("email") as HTMLInputElement).value,
-          phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
           reason,
           message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
         },

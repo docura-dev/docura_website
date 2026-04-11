@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { Mail, MapPin, Linkedin } from "lucide-react";
 import docuraLogo from "@/assets/docura-logo.png";
 
 const footerLinks = {
@@ -10,7 +10,6 @@ const footerLinks = {
     { href: "/contatti", label: "Contatti" },
   ],
   contatti: [
-    { icon: Phone, label: "+39 349 331 7518" },
     { icon: Mail, label: "ask@docura.it" },
     { icon: MapPin, label: "Monza e Brianza (MB), Italia" },
   ],
